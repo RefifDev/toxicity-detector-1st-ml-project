@@ -1,0 +1,65 @@
+    <!DOCTYPE html>
+    <html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Toxicity Detector - Test</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+        <div class="container">
+            <header class="header">
+                <h1>Toxicity Detector</h1>
+            </header>
+
+            <main class="content">
+                <div class="form-container">
+                <div class="form-header">
+                    <h2><i class="fas fa-search icon"></i> Analyse de Texte</h2>
+                    <p>Vérifiez si votre message contient du contenu toxique ou offensant</p>
+                </div>
+                
+                <div class="form-info">
+                    <p><i class="fas fa-info-circle"></i> L'analyse détecte les insultes, le harcèlement, et le discours haineux</p>
+                </div>
+                
+                <form method="POST" action="/predict">
+                    <textarea 
+                        name="message" 
+                        id="messageInput"
+                        placeholder="Saisissez votre message ici... L'analyse évaluera automatiquement le niveau de toxicité."
+                        required
+                        rows="8"
+                        oninput="updateCharCount()"
+                    ></textarea>
+                    
+                    <div class="form-footer">
+                        <div class="char-count">
+                            <span id="charCount">0</span> caractères
+                        </div>
+                        <button type="submit">
+                            <i class="fas fa-chart-line"></i> Analyser le message
+                        </button>
+                    </div>
+                </form>
+            </div>
+            
+            {% if resultat %}
+                <div class="resultat">
+                    <p><strong>Résultat de l'analyse :</strong> {{ resultat }}</p>
+                </div>
+            {% endif %}
+                    
+                    <div class="navigation-links">
+                        <a href="{{ url_for('index') }}" class="nav-button">← Retour à l'accueil</a>
+                        <a href="{{ url_for('about') }}" class="nav-button secondary">À propos →</a>
+                    </div>
+                </div>
+            </main>
+            
+            <footer class="footer">
+                <p>&copy; 2026 refif ilan</p>
+            </footer>
+        </div>
+    </body>
+    </html>

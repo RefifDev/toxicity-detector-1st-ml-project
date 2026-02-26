@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>À propos - Toxicity Detector</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <h1>À propos du projet</h1>
+    </header>
+    
+    <main>
+        <section class="about-section">
+            <h2><i class="fas fa-info-circle"></i> Présentation du projet</h2>
+            <p>
+                Le <strong>Toxicity Detector</strong> est un système de détection automatique de messages toxiques 
+                dans les chats en ligne.
+            </p>
+            <p>
+                Ce projet personnel a été développé dans le cadre de mon apprentissage du Machine Learning 
+                et de la Data Science, afin de m'initier au monde de l'IA et de l'analyse de données, pour les 
+                études que je souhaiterai effectuées.
+            </p>
+            <p>
+                L'objectif est de créer un outil capable d'analyser automatiquement des messages et de détecter 
+                les contenus toxiques (insultes, harcèlement, discours haineux) pour faciliter la modération 
+                des plateformes en ligne.
+            </p>
+        </section>
+
+        <section class="about-section">
+            <h2><i class="fas fa-cogs"></i> Fonctionnement technique</h2>
+            
+            <h3> Dataset hybride</h3>
+            <p>
+                Le modèle a été entraîné sur un dataset hybride de <strong>7 500 messages</strong> :
+            </p>
+            <ul>
+                <li><strong>5 000 messages réels</strong> issus du dataset français Hugging Face (TextDetox)</li>
+                <li><strong>2 500 messages générés</strong> avec un système de templates personnalisé incluant 
+                    des variations linguistiques (préfixes/suffixes) typiques du langage gaming et Twitch</li>
+            </ul>
+            
+            <h3> Vectorisation TF-IDF</h3>
+            <p>
+                Les messages textuels sont transformés en vecteurs numériques via <strong>TF-IDF</strong> 
+                (Term Frequency - Inverse Document Frequency), une technique qui pondère les mots selon leur 
+                importance et leur rareté. Le vocabulaire appris contient <strong>11 695 mots uniques</strong>.
+            </p>
+            
+            <h3> Modèle de classification</h3>
+            <p>
+                L'algorithme utilisé est <strong>Naive Bayes Multinomial</strong>, un classifieur probabiliste 
+                particulièrement efficace pour la classification de texte. Le modèle calcule la probabilité 
+                qu'un message soit toxique ou non-toxique en analysant les patterns de mots.
+            </p>
+            
+            <h3> Performances</h3>
+            <ul>
+                <li><strong>92,4% d'accuracy</strong> sur les données de test générées</li>
+                <li><strong>81,25% d'accuracy</strong> sur les données manuelles réelles (test de généralisation)</li>
+                <li>Convergence en seulement 7-8 itérations lors de l'entraînement</li>
+            </ul>
+        </section>
+
+        <section class="about-section">
+            <h2><i class="fas fa-laptop-code"></i> Technologies utilisées</h2>
+            
+            <h3>Backend & Machine Learning</h3>
+            <ul>
+                <li><strong>Python 3.12</strong> - Langage principal</li>
+                <li><strong>Flask</strong> - Framework web pour l'API et l'interface</li>
+                <li><strong>scikit-learn</strong> - Bibliothèque ML (Naive Bayes, TF-IDF, train/test split)</li>
+                <li><strong>pandas</strong> - Manipulation des datasets</li>
+                <li><strong>joblib</strong> - Sauvegarde/chargement du modèle entraîné</li>
+                <li><strong>Hugging Face Datasets</strong> - Import du dataset français</li>
+            </ul>
+            
+            <h3>Frontend</h3>
+            <ul>
+                <li><strong>HTML & CSS</strong> - Interface utilisateur moderne et responsive</li>
+                <li><strong>Jinja2</strong> - Moteur de templates Flask</li>
+                <li><strong>Font Awesome</strong> - Icônes</li>
+            </ul>
+            
+            <h3>Outils de développement</h3>
+            <ul>
+                <li><strong>VS Code</strong> - Éditeur de code</li>
+                <li><strong>GitHub</strong> - Versionnement du code</li>
+                <li><strong>DB Browser for SQLite</strong> - Gestion de base de données (prévu)</li>
+            </ul>
+        </section>
+
+        <section class="about-section">
+            <h2><i class="fas fa-exclamation-triangle"></i> Limites identifiées</h2>
+            
+            <h3> Absence de contexte conversationnel</h3>
+            <p>
+                Le modèle analyse chaque message <strong>isolément</strong>, sans prendre en compte :
+            </p>
+            <ul>
+                <li>Le ton de la conversation (blague entre amis vs attaque)</li>
+                <li>L'historique des échanges</li>
+                <li>La relation entre les interlocuteurs</li>
+            </ul>
+            <p>
+                <em>Exemple :</em> "T'es nul mdr" entre amis sera classé toxique alors que c'est une blague.
+            </p>
+            
+            <h3> Difficulté avec le sarcasme et l'ironie</h3>
+            <p>
+                Les formulations sarcastiques ou ironiques sont difficiles à détecter car elles nécessitent 
+                une compréhension sémantique profonde que les modèles de Bag-of-Words ne possèdent pas.
+            </p>
+            
+            <h3> Spécificité aux plateformes</h3>
+            <p>
+                Le modèle a été entraîné principalement sur du contenu gaming/Twitch français. 
+                Les performances peuvent varier sur :
+            </p>
+            <ul>
+                <li>Twitter (vocabulaire différent)</li>
+                <li>Forums (style d'écriture formel)</li>
+                <li>Autres langues</li>
+            </ul>
+            
+            <h3> Dataset limité</h3>
+            <p>
+                Avec 7 500 messages d'entraînement, le modèle peut manquer certaines formulations rares 
+                ou nouvelles expressions argotiques. Un dataset de 50k-100k messages améliorerait significativement 
+                les performances.
+            </p>
+            
+            <h3> Faux positifs et faux négatifs</h3>
+            <p>
+                Sur les données de test manuelles, le modèle présente :
+            </p>
+            <ul>
+                <li><strong>11 faux positifs</strong> : messages normaux classés toxiques (ex: "Comment faire cette quête ?")</li>
+                <li><strong>4 faux négatifs</strong> : messages toxiques non détectés (ex: "Trop guez", "Sale noob")</li>
+            </ul>
+        </section>
+
+        <section class="about-section">
+            <h2><i class="fas fa-rocket"></i> Perspectives d'amélioration</h2>
+            
+            <h3> Court terme</h3>
+            <ul>
+                <li><strong>Intégration API Twitch</strong> - Analyse de chats en temps réel</li>
+                <li><strong>Historique en base de données</strong> - Sauvegarde des analyses avec SQLite</li>
+                <li><strong>Upload de dataset personnalisé</strong> - Analyse de plusieurs messages d'un coup</li>
+                <li><strong>Statistiques visuelles</strong> - Graphiques de répartition toxique/non-toxique</li>
+            </ul>
+            
+            <h3> Moyen terme</h3>
+            <ul>
+                <li><strong>Modèles contextuels</strong> - Utilisation de BERT ou CamemBERT (transformers)</li>
+                <li><strong>Détection multi-labels</strong> - Catégoriser par type (insulte, harcèlement, spam, etc.)</li>
+                <li><strong>Dataset étendu</strong> - Augmentation à 50k-100k messages via scraping éthique</li>
+                <li><strong>Fine-tuning par plateforme</strong> - Modèles spécifiques Twitch vs Twitter vs Discord</li>
+            </ul>
+            
+            <h3> Long terme</h3>
+            <ul>
+                <li><strong>Déploiement en production</strong> - Hébergement sur Render.com avec API REST publique</li>
+                <li><strong>Système de feedback</strong> - Apprentissage continu via retours utilisateurs</li>
+                <li><strong>Extension multilingue</strong> - Support anglais, espagnol, allemand</li>
+                <li><strong>Intégration bot Discord/Twitch</strong> - Modération automatique en temps réel</li>
+            </ul>
+        </section>
+
+        <section class="about-section">
+            <h2><i class="fas fa-graduation-cap"></i> Compétences développées</h2>
+            <p>
+                Ce projet m'a permis d'acquérir des compétences complètes en :
+            </p>
+            <ul>
+                <li><strong>Machine Learning</strong> - Pipeline complet (data prep, vectorisation, entraînement, évaluation)</li>
+                <li><strong>NLP</strong> - Traitement du langage naturel, TF-IDF, classification de texte</li>
+                <li><strong>Développement web full-stack</strong> - Backend Flask + Frontend HTML/CSS</li>
+                <li><strong>Architecture logicielle</strong> - Code modulaire, réutilisable et maintenable</li>
+                <li><strong>Analyse critique</strong> - Compréhension des limites du ML et de l'overfitting</li>
+                <li><strong>Gestion de projet</strong> - Planification, itération, documentation</li>
+            </ul>
+        </section>
+
+    <section class="about-section">
+        <h2><i class="fas fa-brain"></i> Méthodologie d'apprentissage</h2>
+        
+        <h3> Utilisation de l'IA comme outil pédagogique</h3>
+        <p>
+            Le développement de ce projet a été accompagné par <strong>Claude (Anthropic)</strong>, 
+            une IA conversationnelle utilisée comme :
+        </p>
+        <ul>
+            <li><strong>Tuteur personnel</strong> - Explications des concepts de Machine Learning, NLP, et développement web</li>
+            <li><strong>Guide technique</strong> - Aide à la résolution de bugs et compréhension des erreurs</li>
+            <li><strong>Outil d'optimisation</strong> - Suggestions d'architecture et de bonnes pratiques</li>
+            <li><strong>Facilitateur d'apprentissage</strong> - Adaptation du rythme selon mes connaissances</li>
+        </ul>
+        
+        <h3> Approche pédagogique</h3>
+        <p>
+            L'utilisation de Claude a été structurée selon une <strong>méthodologie d'apprentissage actif</strong> :
+        </p>
+        <ul>
+            <li><strong>Pas de copier-coller</strong> - Chaque concept a été expliqué puis codé par moi-même</li>
+            <li><strong>Questionnement continu</strong> - Quiz en début de chaque session pour ancrer les connaissances</li>
+            <li><strong>Résolution autonome</strong> - Recherche personnelle avant de demander de l'aide</li>
+            <li><strong>Compréhension profonde</strong> - Focus sur le "pourquoi" plutôt que le "comment"</li>
+        </ul>
+        
+        <h3> Valeur ajoutée</h3>
+        <p>
+            Cette approche m'a permis de :
+        </p>
+        <ul>
+            <li>Apprendre le Machine Learning <strong>de zéro</strong> en 2-3 mois</li>
+            <li>Comprendre les <strong>concepts fondamentaux</strong> (overfitting, généralisation, vectorisation)</li>
+            <li>Développer une <strong>vision critique</strong> des limites du ML</li>
+            <li>Acquérir une <strong>autonomie technique</strong> pour poursuivre mon apprentissage</li>
+        </ul>
+        
+        <h3> Transparence et éthique</h3>
+        <p>
+            Je considère l'IA comme un <strong>outil d'amplification des capacités humaines</strong>, 
+            pas comme un substitut à l'apprentissage. Tout le code de ce projet a été écrit et compris par moi, 
+            avec Claude comme mentor virtuel guidant mon apprentissage dans un domaine initialement inconnu.
+        </p>
+    </section>
+
+        <div class="button-container" style="margin-top: 3rem;">
+            <div class="box">
+                <a href="{{ url_for('index') }}">
+                    <i class="fas fa-arrow-left"></i> <h4> Retour à l'accueil</h4>
+                </a>
+            </div>
+        </div>
+
+    </main>
+</body>
+</html>

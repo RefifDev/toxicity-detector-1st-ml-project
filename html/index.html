@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toxicity Detector - Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Toxicity Detector</h1>
+        </header>
+        <main class="content">
+            <h2>What would you like to do?</h2>
+            
+            <div class="button-container">
+                <div class="box">
+                    <a href="{{ url_for('test') }}" class="button-link">
+                        <h3>Test message toxicity</h3>
+                        <p>Analyze text with our AI</p>
+                    </a>
+                </div>
+                
+                <div class="box">
+                    <a href="{{ url_for('about') }}" class="button-link">
+                        <h3>About the project</h3>
+                        <p>Discover our detector</p>
+                    </a>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="footer">
+            <p>&copy; 2026 refif ilan</p>
+        </footer>
+    </div>
+</body>
+</html>
