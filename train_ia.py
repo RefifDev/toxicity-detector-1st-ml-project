@@ -17,4 +17,5 @@ print(f"Accuracy sur test: {accuracy*100:.2f}%")
 # Sauvegarder
 save_model(model, vectorizer)
 
-print("\n✅ Modèle sauvegardé et prêt à l'emploi !")
+
+print("\nModèle sauvegardé et prêt à l'emploi !")
