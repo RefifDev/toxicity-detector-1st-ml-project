@@ -6,7 +6,7 @@ app = Flask(__name__,
             static_folder='css')
 
 model, vectorizer = load_model()
-print("✅ Modèle chargé au démarrage !")
+print("Modèle chargé au démarrage !")
 
 @app.route('/')
 def index():
@@ -33,4 +33,5 @@ def about():
     return render_template('about.html')
 
 if __name__ == '__main__':
+
     app.run(debug=True) 
