@@ -8,13 +8,13 @@ def save_model(model, vectorizer, model_path='models/model.pkl', vectorizer_path
     """Sauvegarde le modèle et le vectorizer"""
     joblib.dump(model, model_path)
     joblib.dump(vectorizer, vectorizer_path)
-    print('Modèle sauvegardé avec succès !')
+    print(' Modèle sauvegardé avec succès !')
 
 def load_model(model_path='models/model.pkl', vectorizer_path='models/vectorizer.pkl'):
     """Charge le modèle et le vectorizer"""
     model = joblib.load(model_path)
     vectorizer = joblib.load(vectorizer_path)
-    print('Modèle chargé avec succès !')
+    print(' Modèle chargé avec succès !')
     return model, vectorizer
 
 def predict_message(text, model, vectorizer):
@@ -27,7 +27,7 @@ def predict_message(text, model, vectorizer):
 def prepare_data(filepath):
     """Charge et prépare les données"""
     data = pd.read_csv(filepath)
-    print(f"Dataset chargé : {len(data)} messages")
+    print(f" Dataset chargé : {len(data)} messages")
     
     x = data['text']
     y = data['label']
@@ -49,5 +49,5 @@ def train_model(x_train_vec, y_train):
     """Entraîne le modèle"""
     model = MultinomialNB()
     model.fit(x_train_vec, y_train)
-    print("Modèle entraîné !")
+    print(" Modèle entraîné !")
     return model

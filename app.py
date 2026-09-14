@@ -6,7 +6,7 @@ app = Flask(__name__,
             static_folder='css')
 
 model, vectorizer = load_model()
-print("Modèle chargé au démarrage !")
+print("✅ Modèle chargé au démarrage !")
 
 @app.route('/')
 def index():
@@ -17,7 +17,7 @@ def predict():
     message = request.form['message']
     prediction, proba = predict_message(message, model, vectorizer)
     
-    label = "TOXIQUE" if prediction == 1 else "OK"
+    label = "🔴 TOXIQUE" if prediction == 1 else "🟢 OK"
     confiance = proba[prediction] * 100
     
     resultat = f"Message: '{message}' → {label} (Confiance: {confiance:.1f}%)"
@@ -33,5 +33,4 @@ def about():
     return render_template('about.html')
 
 if __name__ == '__main__':
-
     app.run(debug=True) 

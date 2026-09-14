@@ -1,7 +1,7 @@
 from model_utils import load_model, predict_message
 
 print("="*50)
-print("TEST DE PRÉDICTIONS")
+print(" TEST DE PRÉDICTIONS")
 print("="*50)
 
 # Charger le modèle sauvegardé
@@ -18,9 +18,9 @@ messages_test = [
 
 for msg in messages_test:
     pred, proba = predict_message(msg, model, vectorizer)
-    label = "TOXIQUE" if pred == 1 else "OK"
+    label = "🔴 TOXIQUE" if pred == 1 else "🟢 OK"
     confiance = proba[pred] * 100
     print(f"\n'{msg}'")
     print(f"  → {label} (confiance: {confiance:.1f}%)")
 
-print("\nTests terminés !")
+print("\n Tests terminés !")

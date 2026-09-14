@@ -1,7 +1,7 @@
 from model_utils import prepare_data, train_model, save_model
 
 print("="*50)
-print("ENTRAÎNEMENT DU MODÈLE")
+print(" ENTRAÎNEMENT DU MODÈLE")
 print("="*50)
 
 # Préparer les données
@@ -17,5 +17,4 @@ print(f"Accuracy sur test: {accuracy*100:.2f}%")
 # Sauvegarder
 save_model(model, vectorizer)
 
-
-print("\nModèle sauvegardé et prêt à l'emploi !")
+print("\n Modèle sauvegardé et prêt à l'emploi !")
